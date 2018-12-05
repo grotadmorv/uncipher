@@ -1,6 +1,8 @@
+from __future__ import division
 import string 
 import sys
 import argparse
+
 
 d = {}
 total_of_word = 0
@@ -34,6 +36,7 @@ def uncipher(plaintext, shift):
         if search_words(word):
             is_word+=1
         d['output_'+str(shift)] = {'text': output, 'is_word': is_word }
+        global total_of_word
         total_of_word = index
     return d
 
@@ -44,7 +47,7 @@ def wrap_dict():
 
     for dict in d:
         if d[dict]['is_word'] > 0 :
-            print(d[dict]['text'])
+            print("In '"+ d[dict]['text']+ "', there is " + "%.0f%%" % (100 * d[dict]['is_word'] / total_of_word ) + " probability to be a real clear text " )
 
 
 wrap_dict()

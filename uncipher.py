@@ -2,6 +2,8 @@ from __future__ import division
 import string 
 import sys
 import argparse
+from collections import OrderedDict
+from operator import *
 
 
 d = {}
@@ -45,8 +47,10 @@ def wrap_dict():
     for shift in range(1, 27):
         uncipher(args['caesar'], shift)
 
-    for dict in d:
-        if d[dict]['is_word'] > 0 :
+    sorted_d = OrderedDict(sorted(d.items(), key=lambda x: getitem(x[1], 'is_word'), reverse=True))
+
+    for dict in sorted_d:
+        if sorted_d[dict]['is_word'] > 0 :
             print("In '"+ d[dict]['text']+ "', there is " + "%.0f%%" % (100 * d[dict]['is_word'] / total_of_word ) + " probability to be a real clear text " )
 
 
